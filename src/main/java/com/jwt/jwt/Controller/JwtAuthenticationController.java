@@ -1,7 +1,7 @@
 package com.jwt.jwt.Controller;
 
 import com.jwt.jwt.Entity.UserData;
-import com.jwt.jwt.JwtConfig.JwtResonce;
+import com.jwt.jwt.JwtConfig.JwtResponseDto;
 import com.jwt.jwt.JwtConfig.JwtTokenUtil;
 import com.jwt.jwt.JwtConfig.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class JwtAuthenticationController {
        final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(userData.getUsername());
 
        final String token = jwtTokenUtil.generateToken(userDetails);
-       return ResponseEntity.ok(new JwtResonce(token));
+       return ResponseEntity.ok(new JwtResponseDto(token));
     }
 
     private void authenticate(String username, String password)throws Exception{

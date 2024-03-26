@@ -11,7 +11,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "userdata")
+@Table(name = "user_data")
 @Data
 public class UserData implements Serializable, GrantedAuthority {
     @Serial
