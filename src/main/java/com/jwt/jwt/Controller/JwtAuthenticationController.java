@@ -1,6 +1,7 @@
 package com.jwt.jwt.Controller;
 
 import com.jwt.jwt.Entity.UserData;
+import com.jwt.jwt.Exception.UnauthorizedException;
 import com.jwt.jwt.JwtConfig.JwtResponseDto;
 import com.jwt.jwt.JwtConfig.JwtTokenUtil;
 import com.jwt.jwt.JwtConfig.JwtUserDetailsService;
@@ -41,9 +42,9 @@ public class JwtAuthenticationController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         }catch (DisabledException e){
-            throw new Exception("USER_DISABLED", e);
+            throw new UnauthorizedException("USER_DISABLED");
         }catch (BadCredentialsException e){
-            throw new Exception("INVALID CREDENTIALS", e);
+            throw new UnauthorizedException("Invalid Credentials");
         }
     }
 
