@@ -13,9 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user_data")
 @Data
-public class UserData implements Serializable, GrantedAuthority {
-    @Serial
-    private static final long serialVersionUID = 5926468583005150707L;
+public class UserData implements GrantedAuthority {
 
     @Id
     @GeneratedValue
