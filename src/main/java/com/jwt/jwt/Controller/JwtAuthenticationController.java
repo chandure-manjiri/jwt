@@ -12,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,13 +30,13 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService jwtUserDetailsService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthToken(@RequestBody UserData userData)throws Exception{
+    public JwtResponseDto createAuthToken(@RequestBody UserData userData)throws Exception{
        authenticate(userData.getUsername(), userData.getPassword());
 
        final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(userData.getUsername());
 
        final String token = jwtTokenUtil.generateToken(userDetails);
-       return ResponseEntity.ok(new JwtResponseDto(token));
+       return new JwtResponseDto(token);
     }
 
     private void authenticate(String username, String password)throws Exception{
