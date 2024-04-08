@@ -39,13 +39,11 @@ public class JwtAuthenticationController {
        return new JwtResponseDto(token);
     }
 
-    private void authenticate(String username, String password)throws Exception{
+    private void authenticate(String username, String password){
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        }catch (DisabledException e){
-            throw new UnauthorizedException("USER_DISABLED");
-        }catch (BadCredentialsException e){
-            throw new UnauthorizedException("Invalid Credentials");
+        }catch (Exception e){
+            throw new UnauthorizedException(e.toString());
         }
     }
 

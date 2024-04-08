@@ -18,11 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig{
 
-    @Autowired
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
-    @Autowired
-    private JwtUserDetailsService jwtUserDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -39,8 +34,7 @@ public class WebSecurityConfig{
 
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeRequests().requestMatchers("/login").permitAll()
-                .anyRequest().authenticated().and()
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+                .and()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return httpSecurity.build();
     }
