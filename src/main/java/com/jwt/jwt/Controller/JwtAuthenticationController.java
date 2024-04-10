@@ -1,5 +1,6 @@
 package com.jwt.jwt.Controller;
 
+import com.jwt.jwt.Dto.UserDataDto;
 import com.jwt.jwt.Entity.UserData;
 import com.jwt.jwt.Exception.UnauthorizedException;
 import com.jwt.jwt.JwtConfig.JwtResponseDto;
@@ -30,10 +31,10 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService jwtUserDetailsService;
 
     @PostMapping("/login")
-    public JwtResponseDto createAuthToken(@RequestBody UserData userData)throws Exception{
-       authenticate(userData.getUsername(), userData.getPassword());
+    public JwtResponseDto createAuthToken(@RequestBody UserDataDto userDataDto)throws Exception{
+       authenticate(userDataDto.getUsername(), userDataDto.getPassword());
 
-       final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(userData.getUsername());
+       final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(userDataDto.getUsername());
 
        final String token = jwtTokenUtil.generateToken(userDetails);
        return new JwtResponseDto(token);
