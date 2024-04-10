@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user_data")
 @Data
-public class UserData implements GrantedAuthority {
+public class UserData {
 
     @Id
     @GeneratedValue
@@ -21,10 +21,11 @@ public class UserData implements GrantedAuthority {
     private String username = "";
     private String password = "";
     private String role = "";
-    @Override
-    public String getAuthority() {
-        return this.role;
-    }
+    private Integer userId;
+//    @Override
+//    public String getAuthority() {
+//        return this.role;
+//    }
 
     @Override
     public String toString() {
