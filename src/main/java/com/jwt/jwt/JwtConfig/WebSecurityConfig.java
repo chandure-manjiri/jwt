@@ -24,6 +24,10 @@ public class WebSecurityConfig{
         return new BCryptPasswordEncoder();
     }
 
+    private static final String[] AUTH_WHITE_LIST = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+    };
     @Bean
     public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration builder) throws Exception {
         return builder.getAuthenticationManager();
@@ -34,8 +38,7 @@ public class WebSecurityConfig{
 
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeRequests().requestMatchers("/login").permitAll()
-                .requestMatchers("/v3/api-docs/**").permitAll()
-                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers(AUTH_WHITE_LIST).permitAll()
                 .and()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return httpSecurity.build();
